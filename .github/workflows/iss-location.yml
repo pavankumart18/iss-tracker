@@ -27,15 +27,16 @@ jobs:
           restore-keys: |
             cache-121712c
 
+      # 3️⃣ Prime the cache (check cache hit)
       - name: Prime cache-121712c
         run: |
           echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
 
-      # 3️⃣ Install uv
+      # 4️⃣ Install uv
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
-      # 4️⃣ Fetch ISS location data
+      # 5️⃣ Fetch ISS location data
       - name: Fetch ISS location data
         run: |
           uv run --with requests python << 'EOF'
@@ -45,7 +46,7 @@ jobs:
               f.write(data + '\n')
           EOF
 
-      # 5️⃣ Commit and push changes
+      # 6️⃣ Commit and push changes
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
